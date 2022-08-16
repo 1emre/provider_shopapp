@@ -29,7 +29,7 @@ class ProductsGrid extends StatelessWidget {
             // product class objelerine ulasabilmek icin burda nestest bir provider yapısı kullandık her product ıcın bir provider yaratılmıs oldu.
             value: products[i],
             //create: (c) => products[i],
-            child: ProductItem(),
+            child: const ProductItem(),
           );
         });
   }
