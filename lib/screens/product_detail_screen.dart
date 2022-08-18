@@ -14,35 +14,71 @@ class ProductDetailScreen extends StatelessWidget {
     final loadedProduct = context.read<Products>().findById(productID);
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: Text(loadedProduct.tittle),
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            child: FittedBox(child: Image.network(loadedProduct.imageUrl)),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
-          ),
-          Text(
-            '\$${loadedProduct.price}',
-            style: const TextStyle(color: Colors.grey, fontSize: 20),
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.05,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Text(
-              loadedProduct.description,
-              textAlign: TextAlign.center,
-              softWrap: true,
+      // appBar: AppBar(
+      //   centerTitle: false,
+      //   title: Text(loadedProduct.tittle),
+      // ),
+      body: //SingleChildScrollView(
+          CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            iconTheme: const IconThemeData(
+              color: Colors.black,
             ),
-          )
+            expandedHeight: 300,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Container(
+                width: double.infinity,
+                color: Colors.black45,
+                child: Text(loadedProduct.tittle,
+                    style: const TextStyle(color: Colors.white),
+                    textAlign: TextAlign.center),
+              ),
+              background: FittedBox(
+                fit: BoxFit.cover,
+                child: Hero(
+                  tag: loadedProduct.id,
+                  child: Image.network(loadedProduct.imageUrl),
+                ),
+              ),
+            ),
+          ),
+          SliverList(
+              delegate: SliverChildListDelegate([
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
+            Text(
+              '\$${loadedProduct.price}',
+              style: const TextStyle(color: Colors.grey, fontSize: 20),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.05,
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                loadedProduct.description,
+                textAlign: TextAlign.center,
+                softWrap: true,
+              ),
+            ),
+          ])),
         ],
+        // child: Column(
+        //   children: [
+        //     SizedBox(
+        //       width: double.infinity,
+        //       child: FittedBox(
+        //         child: Hero(
+        //           tag: loadedProduct.id,
+        //           child: Image.network(loadedProduct.imageUrl),
+        //         ),
+        //       ),
+        //     ),
+        //   ],
+        // ),
       ),
     );
   }
